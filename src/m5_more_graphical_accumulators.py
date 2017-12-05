@@ -241,10 +241,10 @@ def draw_circles_from_rectangle(m, n, rectangle, window):
         circle.attach_to(window)
     for k in range(n):
         circle = rg.Circle(rg.Point(rectangle.get_center().x,
-                                    rectangle.get_upper_left_corner().y -
-                                    0.5 * rectangle.get_width() - k *
-                                    rectangle.get_width()),
-                           rectangle.get_width() / 2)
+                         rectangle.get_upper_left_corner().y -
+                         0.5 * rectangle.get_width() - k *
+                         rectangle.get_width()),
+                         rectangle.get_width() / 2)
         circle.outline_color = rectangle.outline_color
         circle.attach_to(window)
     window.render()
@@ -331,7 +331,7 @@ def draw_lines_from_rectangles(rectangle1, rectangle2, n, window):
       :type window: rg.RoseWindow
       """
     # ------------------------------------------------------------------
-    # TODO: 5. Implement and test this function.
+    # DONE: 5. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # CONSIDER using the ACCUMULATOR IN GRAPHICS pattern,
@@ -348,11 +348,20 @@ def draw_lines_from_rectangles(rectangle1, rectangle2, n, window):
     rectangle1.attach_to(window)
     rectangle2.attach_to(window)
     for k in range(n):
-        point = rg.Point(rectangle1.get_center().x - 0.5 *
-                         rectangle1.get_height() * k, rectangle1.get_center(
-
-        ).y + 0.5 * rectangle1.get_height())
-        line = rg.Line(point, rectangle2.get_lower_left_corner())
+        point1 = rg.Point(rectangle1.get_center().x - 0.5 *
+                         rectangle1.get_width() * k,
+                         rectangle1.get_center().y
+                         + 0.5 * rectangle1.get_height() * k)
+        point2 = rg.Point(rectangle2.get_center().x -
+                          0.5 * rectangle1.get_width() * k,
+                          rectangle2.get_center().y + 0.5 *
+                          rectangle1.get_height() * k)
+        line = rg.Line(point1, point2)
+        line.thickness = 5
+        if k % 2 == 0:
+            line.color = rectangle1.outline_color
+        if k % 2 == 1:
+            line.color = rectangle2.outline_color
         line.attach_to(window)
     window.render()
 
